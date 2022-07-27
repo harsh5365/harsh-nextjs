@@ -1,5 +1,6 @@
-import type { NextComponentType, NextPage } from 'next'
+import type { NextPage } from 'next'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import React from 'react'
 
 const Users: NextPage = (props:any) => {
     return (
@@ -15,23 +16,22 @@ const Users: NextPage = (props:any) => {
                     </tr>
                 </thead>
                 <tbody>
-                    <TableRow users={props.users} key={1} />
+                    {props.users.map((user:any, i:number) => (
+                        <TableRow user={user} key={i} />
+                    ))}
                 </tbody>
             </table>
         </div>
     )
 }
 
-const TableRow: any = (props: any) => {
+const TableRow: React.ComponentType = (props: any) => {
     return (
-        props.users.map((user: {id: number, first_name: string, last_name: string, email: string}) => {
-            console.log(user);
-            <tr key={user.id}>
-                <td>{user.first_name}</td>
-                <td>{user.last_name}</td>
-                <td>{user.email}</td>
-            </tr>
-        })
+        <tr key={props.user.id}>
+            <td>{props.user.first_name}</td>
+            <td>{props.user.last_name}</td>
+            <td>{props.user.email}</td>
+        </tr>
     )
 }
 
